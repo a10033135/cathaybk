@@ -61,6 +61,10 @@ dependencies {
     // klog
     implementation deps.klog
 
+    // glide
+    implementation deps.glide.runtime
+    implementation deps.glide.compiler
+
     //Reactivex
     implementation deps.reactivex.rxPermissions2
     implementation deps.reactivex.rx2Bining
