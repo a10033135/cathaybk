@@ -1,6 +1,7 @@
 ## 環境說明
 * Android Studio / tools.build:gradle ：4.1.3
 * gradlew：gradle-6.5-bin.zip
+* target version: 30 , mini version: 24
 
 ## MVP 架構
 * 單一 Activity 搭載多 Fragment 
@@ -16,3 +17,4 @@
  
  ## 備註
  * 由於 api 在 user.site_admin 皆回傳 false，因此暫時改為每三個 user 即顯示 badge
+ * 各個 library 版本整理於 dependency.gradle 檔案
