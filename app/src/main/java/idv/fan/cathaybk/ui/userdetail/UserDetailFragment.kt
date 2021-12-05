@@ -70,7 +70,7 @@ class UserDetailFragment :
         activity?.let { activity ->
             val builder = AlertDialog.Builder(activity)
             builder.setCancelable(false)
-            builder.setMessage(R.string.net_error)
+            builder.setMessage(R.string.net_error_msg)
             builder.setPositiveButton(R.string.btn_ok) { dialog, which ->
                 if (which == DialogInterface.BUTTON_POSITIVE) {
                     dialog.dismiss()

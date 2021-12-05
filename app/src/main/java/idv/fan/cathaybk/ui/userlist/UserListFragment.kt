@@ -4,10 +4,12 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.socks.library.KLog
 import idv.fan.cathaybk.R
 import idv.fan.cathaybk.model.User
+import idv.fan.cathaybk.ui.EndlessRecyclerOnScrollListener
 import idv.fan.cathaybk.ui.base.BaseFragment
 import idv.fan.cathaybk.ui.userdetail.UserDetailFragment
 import idv.fan.cathaybk.ui.userdetail.UserDetailPresenter
@@ -17,7 +19,7 @@ class UserListFragment : BaseFragment<UserListContract.View, UserListContract.Pr
     UserListContract.View {
 
     private var mAdapter: UserListAdapter? = null
-    private var mUserListener = object : UserListAdapter.UserListListener {
+    private val mUserListener = object : UserListAdapter.UserListListener {
         override fun onUserClick(userLogin: String) {
             KLog.i(getTAG(), "onUserClick.userLogin: ")
             val fragment = UserDetailFragment()
@@ -26,6 +28,8 @@ class UserListFragment : BaseFragment<UserListContract.View, UserListContract.Pr
             mFragmentNavigationListener.pushFragment(fragment)
         }
     }
+
+    private var mEndlessOnScrollListener: EndlessRecyclerOnScrollListener? = null
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -42,12 +46,23 @@ class UserListFragment : BaseFragment<UserListContract.View, UserListContract.Pr
     }
 
     private fun initView() {
-        rv_user_list?.layoutManager = LinearLayoutManager(activity)
+        val linearLayoutManager = LinearLayoutManager(activity)
+        rv_user_list?.layoutManager = linearLayoutManager
         if (mAdapter == null) {
             mAdapter = UserListAdapter()
             mAdapter?.setListener(mUserListener)
         }
         rv_user_list?.adapter = mAdapter
+
+        if (mEndlessOnScrollListener == null) {
+            mEndlessOnScrollListener = object : EndlessRecyclerOnScrollListener(linearLayoutManager) {
+                override fun onLoadMore(page: Int) {
+                    presenter?.onLoadMore(page)
+                }
+            }
+        }
+        rv_user_list?.addOnScrollListener(mEndlessOnScrollListener!!)
+
     }
 
     override fun onDestroyView() {
@@ -69,6 +84,10 @@ class UserListFragment : BaseFragment<UserListContract.View, UserListContract.Pr
 
     override fun setListVisibility(visibility: Int) {
         rv_user_list.visibility = visibility
+    }
+
+    override fun showToast(msg: String) {
+        Toast.makeText(activity, msg, Toast.LENGTH_SHORT).show()
     }
 
     override fun getTAG(): String {

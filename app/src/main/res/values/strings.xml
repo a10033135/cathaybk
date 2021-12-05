@@ -1,10 +1,15 @@
 <resources>
     <string name="app_name">cathaybk</string>
 
+    <!-- view -->
+    <string name="is_admin">STAFF</string>
+    <string name="btn_ok">確定</string>
     <string name="page_title_users">Github Users</string>
     <string name="users">Users</string>
 
-    <string name="is_admin">STAFF</string>
-    <string name="net_error">error, please try later, tks!</string>
-    <string name="btn_ok">確定</string>
+    <!-- msg -->
+    <string name="net_error_msg">error, please try later, tks!</string>
+    <string name="list_end">資料已經到底端</string>
+    <string name="page_tips">目前頁面 %d / 總頁數 %d</string>
+
 </resources>

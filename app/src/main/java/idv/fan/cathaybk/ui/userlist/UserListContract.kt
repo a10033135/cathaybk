@@ -15,9 +15,10 @@ interface UserListContract : BaseContract {
         fun setErrorMsgVisibility(visibility: Int)
         fun setLoadingVisibility(visibility: Int)
         fun setListVisibility(visibility: Int)
+        fun showToast(msg: String)
     }
 
     interface Presenter : BaseContract.Presenter<View> {
-
+        fun onLoadMore(page: Int)
     }
 }

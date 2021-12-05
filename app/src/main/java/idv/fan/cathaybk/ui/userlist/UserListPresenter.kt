@@ -2,6 +2,7 @@ package idv.fan.cathaybk.ui.userlist
 
 import android.view.View
 import com.socks.library.KLog
+import idv.fan.cathaybk.R
 import idv.fan.cathaybk.model.User
 import idv.fan.cathaybk.net.Interactorlmpl
 import idv.fan.cathaybk.net.RxSubscriber
@@ -12,8 +13,10 @@ import idv.fan.cathaybk.ui.base.BasePresenter
 class UserListPresenter : BasePresenter<UserListContract.View>(), UserListContract.Presenter {
 
     private val TAG = UserListPresenter::class.java.simpleName
-    private var mAlUserList = listOf<User>()
+    private var mAlUserList = arrayListOf<User>()
     private val mUserInteractor: UserInteractor by lazy { Interactorlmpl() }
+    private val PER_PAGE = 20
+    private val PAGE_LIMIT = 5
 
     enum class ViewStatus { LOADING, SUCCESS, ERROR }
 
@@ -36,19 +39,32 @@ class UserListPresenter : BasePresenter<UserListContract.View>(), UserListContra
         }
     }
 
+    override fun onLoadMore(page: Int) {
+        view?.getFragmentActivity()?.let { activity ->
+            if (page > PAGE_LIMIT) {
+                view?.showToast(activity.getString(R.string.list_end))
+                return
+            }
+            view?.showToast(activity.getString(R.string.page_tips, page, PAGE_LIMIT))
+            view?.setLoadingVisibility(View.VISIBLE)
+            getUserListByApi(mAlUserList.last().id)
+        }
+
+    }
+
     override fun subscribe() {
         if (mAlUserList.isEmpty()) {
-            getUserListByApi()
+            setViewStatus(ViewStatus.LOADING)
+            getUserListByApi(0)
         } else {
             setViewStatus(ViewStatus.SUCCESS)
         }
     }
 
-    private fun getUserListByApi() {
-        setViewStatus(ViewStatus.LOADING)
+    private fun getUserListByApi(since: Int) {
         val getUserListSubscriber = object : RxSubscriber<List<User>>() {
-            override fun _onNext(list: List<User>?) {
-                mAlUserList = list ?: listOf()
+            override fun _onNext(list: List<User>) {
+                mAlUserList.addAll(list)
                 setViewStatus(ViewStatus.SUCCESS)
             }
 
@@ -59,7 +75,7 @@ class UserListPresenter : BasePresenter<UserListContract.View>(), UserListContra
 
         }
         mUserInteractor
-            .getUsers(20, 0)
+            .getUsers(PER_PAGE, since)
             .compose(SwitchSchedulers.applyFlowableSchedulers())
             .onBackpressureBuffer()
             .subscribe(getUserListSubscriber)
