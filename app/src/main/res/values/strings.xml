@@ -1,3 +1,10 @@
 <resources>
     <string name="app_name">cathaybk</string>
+
+    <string name="page_title_users">Github Users</string>
+    <string name="users">Users</string>
+
+    <string name="is_admin">STAFF</string>
+    <string name="net_error">error, please try later, tks!</string>
+    <string name="btn_ok">確定</string>
 </resources>

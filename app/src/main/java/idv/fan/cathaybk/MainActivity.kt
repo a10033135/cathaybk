@@ -1,12 +1,14 @@
 package idv.fan.cathaybk
 
 import android.os.Bundle
+import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import com.ncapdevi.fragnav.FragNavController
 import com.socks.library.KLog
-import idv.fan.cathaybk.ui.ListFragment
+import idv.fan.cathaybk.ui.userlist.UserListFragment
 import idv.fan.cathaybk.ui.base.BaseFragment
+import idv.fan.cathaybk.ui.userlist.UserListPresenter
 
 class MainActivity : AppCompatActivity(), BaseFragment.FragmentNavigationListener {
 
@@ -22,11 +24,24 @@ class MainActivity : AppCompatActivity(), BaseFragment.FragmentNavigationListene
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+        KLog.init(true)
         initFragNavController(savedInstanceState)
     }
 
+    override fun onBackPressed() {
+        KLog.i(TAG, "onBackPressed")
+        if (!mFragNavController.isRootFragment) {
+            mFragNavController.popFragment()
+        } else {
+            KLog.i(TAG, "isRootFragment")
+            super.onBackPressed()
+        }
+    }
+
     private fun initFragNavController(savedInstanceState: Bundle?) {
-        mFragNavController.rootFragments = listOf(ListFragment())
+        val userListFragment = UserListFragment()
+        userListFragment.presenter = UserListPresenter()
+        mFragNavController.rootFragments = listOf(userListFragment)
         mFragNavController.initialize(FragNavController.TAB1, savedInstanceState)
     }
 
@@ -39,6 +54,7 @@ class MainActivity : AppCompatActivity(), BaseFragment.FragmentNavigationListene
 
     override fun pushFragment(fragment: Fragment) {
         KLog.i(TAG, "pushFragment: ${fragment::class.java.simpleName}")
+        mFragNavController.pushFragment(fragment)
     }
 
     override fun popFragment() {

@@ -8,5 +8,5 @@ interface UserInteractor {
 
     fun getUsers(per_page: Int, since: Int): Flowable<List<User>>
 
-    fun getUserDetail(username: String): Flowable<UserDetail>
+    fun getUserDetail(userLogin: String): Flowable<UserDetail>
 }

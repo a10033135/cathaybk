@@ -11,9 +11,9 @@ class Interactorlmpl : UserInteractor {
             .getUsers(per_page, since)
     }
 
-    override fun getUserDetail(username: String): Flowable<UserDetail> {
+    override fun getUserDetail(userLogin: String): Flowable<UserDetail> {
         return ApiService.instance.getApiService(UserInterface::class.java)
-            .getUserDetail("a10033135")
+            .getUserDetail(userLogin)
     }
 
 }
