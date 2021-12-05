@@ -13,6 +13,7 @@ abstract class BasePresenter<V : BaseContract.View> : BaseContract.Presenter<V> 
         this.view = view
     }
 
+    /* 統一釋放資源 */
     override fun unsubscribe() {
         compositeDisposable.clear()
     }

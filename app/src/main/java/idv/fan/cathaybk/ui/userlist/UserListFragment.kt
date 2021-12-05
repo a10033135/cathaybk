@@ -4,8 +4,8 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.socks.library.KLog
 import idv.fan.cathaybk.R
 import idv.fan.cathaybk.model.User
 import idv.fan.cathaybk.ui.base.BaseFragment
@@ -18,9 +18,10 @@ class UserListFragment : BaseFragment<UserListContract.View, UserListContract.Pr
 
     private var mAdapter: UserListAdapter? = null
     private var mUserListener = object : UserListAdapter.UserListListener {
-        override fun onUserClick(user: User) {
+        override fun onUserClick(userLogin: String) {
+            KLog.i(getTAG(), "onUserClick.userLogin: ")
             val fragment = UserDetailFragment()
-            val presenter = UserDetailPresenter(user.login)
+            val presenter = UserDetailPresenter(userLogin)
             fragment.presenter = presenter
             mFragmentNavigationListener.pushFragment(fragment)
         }

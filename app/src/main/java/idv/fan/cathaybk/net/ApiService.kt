@@ -14,11 +14,12 @@ import java.util.concurrent.TimeUnit
 class ApiService private constructor() {
 
     private val TIME_OUT = 30L
+
+    /* Github API 網址 */
     private val BASE_URL = "https://api.github.com/"
     private var retrofit: Retrofit
 
     companion object {
-        val TAG = ApiService::class.java.simpleName
         val instance: ApiService by lazy { ApiService() }
     }
 
@@ -42,6 +43,7 @@ class ApiService private constructor() {
         return retrofit.create(classofT)
     }
 
+    /* 使用Github Api 時，需於 Header 加上 token ，３０天需更新一次 */
     class TokenHeaderInterceptor : Interceptor {
         private val GITHUB_OAUTH_TOKEN = "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"
         override fun intercept(chain: Interceptor.Chain): Response {

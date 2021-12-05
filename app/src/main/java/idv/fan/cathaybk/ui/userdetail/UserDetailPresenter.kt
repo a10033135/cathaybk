@@ -1,6 +1,7 @@
 package idv.fan.cathaybk.ui.userdetail
 
 import android.view.View
+import com.socks.library.KLog
 import idv.fan.cathaybk.R
 import idv.fan.cathaybk.model.UserDetail
 import idv.fan.cathaybk.model.UserInfo
@@ -9,9 +10,10 @@ import idv.fan.cathaybk.net.RxSubscriber
 import idv.fan.cathaybk.net.SwitchSchedulers
 import idv.fan.cathaybk.net.UserInteractor
 import idv.fan.cathaybk.ui.base.BasePresenter
-import idv.fan.cathaybk.ui.userlist.UserListPresenter
 
 class UserDetailPresenter(userLogin: String) : BasePresenter<UserDetailContract.View>(), UserDetailContract.Presenter {
+
+    private val TAG = UserDetailPresenter::class.java.simpleName
 
     private val mUserLogin = userLogin
     private var mUserDetail: UserDetail? = null
@@ -20,6 +22,7 @@ class UserDetailPresenter(userLogin: String) : BasePresenter<UserDetailContract.
     enum class ViewStatus { LOADING, SUCCESS, ERROR }
 
     private fun setViewStatus(status: ViewStatus) {
+        KLog.i(TAG, "setViewStatus: $status")
         view?.setLoadingVisibility(View.GONE)
         when (status) {
             ViewStatus.LOADING -> {
@@ -55,6 +58,7 @@ class UserDetailPresenter(userLogin: String) : BasePresenter<UserDetailContract.
             }
 
             override fun _onError(code: Int, msg: String?) {
+                KLog.e(TAG, msg)
                 setViewStatus(ViewStatus.ERROR)
             }
         }
@@ -63,6 +67,7 @@ class UserDetailPresenter(userLogin: String) : BasePresenter<UserDetailContract.
             .compose(SwitchSchedulers.applyFlowableSchedulers())
             .onBackpressureBuffer()
             .subscribe(getUserListSubscriber)
+        getUserListSubscriber.add(compositeDisposable)
     }
 
     /* 將 Github UserDetail 轉為可以列表顯示的 UserInfo List 供 View 控管與使用 */

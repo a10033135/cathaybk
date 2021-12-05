@@ -28,7 +28,7 @@ class UserListAdapter : RecyclerView.Adapter<UserListAdapter.UserListViewHolder>
         mAlUser.getOrNull(position)?.let { userBean ->
             val context = holder.itemView.context
             RxView.clicks(holder.itemView).subscribe {
-                mListener?.onUserClick(userBean)
+                mListener?.onUserClick(userBean.login)
             }
             holder.tvUserName.text = userBean.login
             /* 由於目前 site_admin 都是 false ，因此改為 userBean.id 判斷 */
@@ -64,6 +64,6 @@ class UserListAdapter : RecyclerView.Adapter<UserListAdapter.UserListViewHolder>
     }
 
     interface UserListListener {
-        fun onUserClick(user: User)
+        fun onUserClick(userLogin: String)
     }
 }

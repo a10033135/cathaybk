@@ -48,6 +48,7 @@ class UserDetailFragment :
 
     override fun setUserDetail(userDetail: UserDetail) {
         activity?.let { activity ->
+            border_user_info.visibility = View.VISIBLE
             tv_user_name.visibility = if (userDetail.login.isNullOrEmpty()) View.GONE else View.VISIBLE
             tv_user_name.text = userDetail.login
             tv_user_bio.visibility = if (userDetail.bio.isNullOrEmpty()) View.GONE else View.VISIBLE
