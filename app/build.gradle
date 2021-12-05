@@ -58,6 +58,9 @@ dependencies {
     //FragNav
     implementation deps.fragnav
 
+    // klog
+    implementation deps.klog
+
     //Reactivex
     implementation deps.reactivex.rxPermissions2
     implementation deps.reactivex.rx2Bining

@@ -58,6 +58,7 @@ kotlin.extensions = "org.jetbrains.kotlin:kotlin-android-extensions:$versions.ko
 deps.kotlin = kotlin
 
 deps.fragnav = "com.ncapdevi:frag-nav:3.3.0" //Control Fragment flow (https://github.com/ncapdevi/FragNav)
+deps.klog = "com.github.zhaokaiqiang.klog:library:1.6.0"
 
 ext.deps = deps
 
