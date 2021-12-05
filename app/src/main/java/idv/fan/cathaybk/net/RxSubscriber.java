@@ -4,10 +4,6 @@ import com.socks.library.KLog;
 
 import io.reactivex.subscribers.ResourceSubscriber;
 
-/**
- * Created by Warren on 2018/1/10.
- */
-
 public abstract class RxSubscriber<T> extends ResourceSubscriber<T> {
     private final String TAG = RxSubscriber.class.getSimpleName();
 

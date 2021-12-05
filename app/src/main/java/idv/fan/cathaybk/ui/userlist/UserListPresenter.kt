@@ -40,6 +40,7 @@ class UserListPresenter : BasePresenter<UserListContract.View>(), UserListContra
     }
 
     override fun onLoadMore(page: Int) {
+        KLog.i(TAG, "onLoadMore.Page: $page")
         view?.getFragmentActivity()?.let { activity ->
             if (page > PAGE_LIMIT) {
                 view?.showToast(activity.getString(R.string.list_end))
@@ -49,7 +50,6 @@ class UserListPresenter : BasePresenter<UserListContract.View>(), UserListContra
             view?.setLoadingVisibility(View.VISIBLE)
             getUserListByApi(mAlUserList.last().id)
         }
-
     }
 
     override fun subscribe() {

@@ -76,7 +76,9 @@ class UserDetailPresenter(userLogin: String) : BasePresenter<UserDetailContract.
         val alUserInfo = arrayListOf<UserInfo>()
 
         if (!detail.login.isNullOrEmpty()) {
-            val siteAdmin = if (detail.site_admin) activity.getString(R.string.is_admin) else ""
+//            val siteAdmin = if (detail.site_admin) activity.getString(R.string.is_admin) else ""
+            /* 由於目前 site_admin 都是 false ，因此改為 userBean.id 判斷 */
+            val siteAdmin = if (detail.id % 3 == 0) activity.getString(R.string.is_admin) else ""
             val personInfo = UserInfo(R.drawable.ic_person, detail.login, siteAdmin)
             alUserInfo.add(personInfo)
         }

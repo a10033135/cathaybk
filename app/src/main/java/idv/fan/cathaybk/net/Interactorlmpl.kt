@@ -3,7 +3,6 @@ package idv.fan.cathaybk.net
 import idv.fan.cathaybk.model.User
 import idv.fan.cathaybk.model.UserDetail
 import io.reactivex.Flowable
-import kotlin.math.sin
 
 class Interactorlmpl : UserInteractor {
 
