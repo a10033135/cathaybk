@@ -1,7 +1,6 @@
 package idv.fan.cathaybk.net
 
 import com.google.gson.GsonBuilder
-import idv.fan.cathaybk.Utils
 import okhttp3.Headers.Companion.toHeaders
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
@@ -45,7 +44,7 @@ class ApiService private constructor() {
 
     /* 使用Github Api 時，需於 Header 加上 token ，３０天需更新一次 */
     class TokenHeaderInterceptor : Interceptor {
-        private val GITHUB_OAUTH_TOKEN = "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"
+        private val GITHUB_OAUTH_TOKEN = "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"
         override fun intercept(chain: Interceptor.Chain): Response {
             val original = chain.request()
             val headerBuild = Utils.getTokenHeader(GITHUB_OAUTH_TOKEN).toHeaders()

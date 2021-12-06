@@ -1,4 +1,4 @@
-package idv.fan.cathaybk
+package idv.fan.cathaybk.net
 
 import android.text.TextUtils
 import java.util.*

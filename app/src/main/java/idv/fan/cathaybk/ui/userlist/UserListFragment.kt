@@ -67,6 +67,7 @@ class UserListFragment : BaseFragment<UserListContract.View, UserListContract.Pr
 
     override fun onDestroyView() {
         super.onDestroyView()
+        rv_user_list?.clearOnScrollListeners()
         mAdapter = null
     }
 
@@ -75,15 +76,15 @@ class UserListFragment : BaseFragment<UserListContract.View, UserListContract.Pr
     }
 
     override fun setErrorMsgVisibility(visibility: Int) {
-        tv_error.visibility = visibility
+        tv_error?.visibility = visibility
     }
 
     override fun setLoadingVisibility(visibility: Int) {
-        pb_loading.visibility = visibility
+        pb_loading?.visibility = visibility
     }
 
     override fun setListVisibility(visibility: Int) {
-        rv_user_list.visibility = visibility
+        rv_user_list?.visibility = visibility
     }
 
     override fun showToast(msg: String) {

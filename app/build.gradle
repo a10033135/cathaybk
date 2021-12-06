@@ -6,8 +6,8 @@ plugins {
 }
 
 android {
-    compileSdkVersion 30
-    buildToolsVersion "30.0.3"
+    compileSdkVersion build_versions.compiler_sdk
+    buildToolsVersion build_versions.build_tools
 
     defaultConfig {
         applicationId "idv.fan.cathaybk"

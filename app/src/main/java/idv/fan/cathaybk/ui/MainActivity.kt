@@ -1,11 +1,11 @@
-package idv.fan.cathaybk
+package idv.fan.cathaybk.ui
 
 import android.os.Bundle
-import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import com.ncapdevi.fragnav.FragNavController
 import com.socks.library.KLog
+import idv.fan.cathaybk.R
 import idv.fan.cathaybk.ui.userlist.UserListFragment
 import idv.fan.cathaybk.ui.base.BaseFragment
 import idv.fan.cathaybk.ui.userlist.UserListPresenter
